@@ -7,11 +7,23 @@
 
 import UIKit
 
-class VolumeData: NSObject, Decodable {
-    
-    var movies: [MovieData]?
-    
-    private enum CodingKeys: String, CodingKey {
-        case movies = "results"
+struct VolumeData: Codable {
+    let success: Bool
+    let result: [Movie]
+
+    struct Movie: Codable {
+        let title: String
+        let year: String
+        let imdbID: String
+        let type: String
+        let poster: String
+
+        enum CodingKeys: String, CodingKey {
+            case title = "Title"
+            case year = "Year"
+            case imdbID = "imdbID"
+            case type = "Type"
+            case poster = "Poster"
+        }
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 class SearchTableViewController: UITableViewController, UISearchBarDelegate {
 
     weak var databaseController: DatabaseProtocol?
-    let REQUEST_STRING = "https://imdb-api.com/API/SearchMovie/k_21epknx4/"
+//    let REQUEST_STRING = "https://imdb-api.com/API/SearchMovie/k_21epknx4/"
     var newMovies = [MovieData]()
     let CELL_MOVIE = "movieCell"
     var indicator = UIActivityIndicatorView()
@@ -52,33 +52,82 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func requestMoviesNamed(_ movieName: String) async {
-        let u = "https://imdb-api.com/API/SearchTitle/k_21epknx4/" + movieName
-        guard let requestURL = URL(string: u) else {
-            print("Invalid URL.")
-            return
-        }
-        let urlRequest = URLRequest(url: requestURL)
+        
+        let movieName = movieName.replacingOccurrences(of: " ", with: "+")
+        
         do {
-            let (data, _) =
-            try await URLSession.shared.data(for: urlRequest)
-            await MainActor.run {
-                indicator.stopAnimating()
-            }
+            
+            let headers = [
+              "content-type": "application/json",
+              "authorization": "apikey 6EqsBfmY1KiWcFXzpzZNvS:2E5ubEEpx2B1CjHoNPfLyU"
+            ]
 
-            let decoder = JSONDecoder()
-            let volumeData = try decoder.decode(VolumeData.self, from: data)
-                        
-            if let movies = volumeData.movies {
-                await MainActor.run {
-                    newMovies.append(contentsOf: movies)
-                    tableView.reloadData()
-                }
-                if movies.count == MAX_ITEMS_PER_REQUEST, currentRequestIndex + 1 < MAX_REQUESTS {
+            let request = NSMutableURLRequest(url: NSURL(string: "https://api.collectapi.com/imdb/imdbSearchByName?query=\(movieName)")! as URL,
+                                                    cachePolicy: .useProtocolCachePolicy,
+                                                timeoutInterval: 10.0)
+            request.httpMethod = "GET"
+            request.allHTTPHeaderFields = headers
 
-                    currentRequestIndex += 1
-                    await requestMoviesNamed(movieName)
-                }
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                if (error != nil) {
+                    print(error!)
+                } else {
+                  if let httpResponse = response as? HTTPURLResponse {
+                      if httpResponse.statusCode == 200 {
+                          
+                          if let data = data {
+                              do {
+                                  let decoder = JSONDecoder()
+                                  let volumeData = try decoder.decode(VolumeData.self, from: data)
+                                  print(11111111111111111)
+                                  print(volumeData.result)
+                                  print(11111111111111111)
+//                                  if let movies = volumeData.result {
+//                                      await MainActor.run {
+//                                          newMovies.append(contentsOf: movies)
+//                                          tableView.reloadData()
+//                                      }
+//                                      if movies.count == MAX_ITEMS_PER_REQUEST, currentRequestIndex + 1 < MAX_REQUESTS {
+//
+//                                          currentRequestIndex += 1
+//                                          await requestMoviesNamed(movieName)
+//                                      }
+//                                  }
+                              } catch {
+                                  print(error)
+                              }
+                          }
+                      }
+                  }
+              }
             }
+            
+
+            dataTask.resume()
+            
+//            let (data, _) =
+//            try await URLSession.shared.data(for: urlRequest)
+//            await MainActor.run {
+//                indicator.stopAnimating()
+//            }
+//
+//            let decoder = JSONDecoder()
+//            let volumeData = try decoder.decode(VolumeData.self, from: data)
+//            //let volumeData = try decoder.decode(VolumeData.self, from: dataTask)
+//
+//            if let movies = volumeData.movies {
+//                await MainActor.run {
+//                    newMovies.append(contentsOf: movies)
+//                    tableView.reloadData()
+//                }
+//                if movies.count == MAX_ITEMS_PER_REQUEST, currentRequestIndex + 1 < MAX_REQUESTS {
+//
+//                    currentRequestIndex += 1
+//                    await requestMoviesNamed(movieName)
+//                }
+//            }
+            
         }
         catch let error {
             print(error)

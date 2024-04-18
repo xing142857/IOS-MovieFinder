@@ -40,7 +40,6 @@
 		23DDBA032820F3390059C063 /* fantasy.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 23DDBA022820F3380059C063 /* fantasy.jpeg */; };
 		23DDBA052820F37A0059C063 /* romance.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 23DDBA042820F37A0059C063 /* romance.jpeg */; };
 		23F0E56428263F1A00A06384 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F0E56328263F1A00A06384 /* UserData.swift */; };
-		E3426FC52BCAA736001D2C14 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = E3426FC42BCAA736001D2C14 /* Apollo */; };
 		E3A149192BCBABB000A8D33A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3A149182BCBABB000A8D33A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -86,7 +85,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				23D1E727282234180081498A /* FirebaseFirestoreSwift-Beta in Frameworks */,
-				E3426FC52BCAA736001D2C14 /* Apollo in Frameworks */,
 				23D1E723282234180081498A /* FirebaseAuth in Frameworks */,
 				23D1E725282234180081498A /* FirebaseFirestore in Frameworks */,
 			);
@@ -202,7 +200,6 @@
 				23D1E722282234180081498A /* FirebaseAuth */,
 				23D1E724282234180081498A /* FirebaseFirestore */,
 				23D1E726282234180081498A /* FirebaseFirestoreSwift-Beta */,
-				E3426FC42BCAA736001D2C14 /* Apollo */,
 			);
 			productName = Assessment;
 			productReference = 23778106281E2EB900FF5473 /* Assessment.app */;
@@ -237,7 +234,6 @@
 			mainGroup = 237780FD281E2EB900FF5473;
 			packageReferences = (
 				23D1E721282234180081498A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				E3426FC32BCAA736001D2C14 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 			);
 			productRefGroup = 23778107281E2EB900FF5473 /* Products */;
 			projectDirPath = "";
@@ -521,14 +517,6 @@
 				minimumVersion = 8.0.0;
 			};
 		};
-		E3426FC32BCAA736001D2C14 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -546,11 +534,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 23D1E721282234180081498A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
-		};
-		E3426FC42BCAA736001D2C14 /* Apollo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E3426FC32BCAA736001D2C14 /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = Apollo;
 		};
 /* End XCSwiftPackageProductDependency section */
 

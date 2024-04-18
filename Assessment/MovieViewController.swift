@@ -29,17 +29,17 @@ class MovieViewController: UIViewController {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-        
+
         movieID = (databaseController?.returnCurrentMovie().id)!
         movieTitleText.text = databaseController?.returnCurrentMovie().title
         guard let url = databaseController?.returnCurrentMovie().image, let requestURL = URL(string: url) else { return }
-        
+
         Task {
             await requestMoviesTrailer()
             guard let u = trailerData.linkEmbed, let requestURL = URL(string: u) else { return }
             webview.load(URLRequest(url: requestURL))
         }
-        
+
         Task {
             await requestMoviesRate()
             movieTitleImage.imageFrom(url: requestURL)
@@ -71,7 +71,7 @@ class MovieViewController: UIViewController {
             print(error)
         }
     }
-    
+
     func requestMoviesTrailer() async {
         let u = "https://imdb-api.com/API/Trailer/k_21epknx4/" + movieID
         guard let requestURL = URL(string: u) else {
