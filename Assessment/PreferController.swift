@@ -13,18 +13,17 @@ class PreferController: UIViewController {
     var preferList = [Int]()
     
     @IBAction func favoriteMovieButton(_ sender: UIButton) {
-        guard let button = sender as? UIButton else {return}
         if sender.backgroundColor == UIColor.blue {
             sender.backgroundColor = UIColor.white
             for i in (0...preferList.count-1) {
-                if preferList[i] == button.tag {
+                if preferList[i] == sender.tag {
                     preferList.remove(at: i)
                     return
                 }
             }
         } else if (preferList.count < 3){
             sender.backgroundColor = UIColor.blue
-            preferList.append(button.tag)
+            preferList.append(sender.tag)
         }
         return
     }

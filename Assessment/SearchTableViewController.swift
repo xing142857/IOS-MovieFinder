@@ -74,13 +74,14 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
                 do {
                     let decoder = JSONDecoder()
                     let volumeData = try decoder.decode(VolumeData.self, from: data)
+                    for movie in volumeData.result {
+                        print(movie.title)
+                    }
                     
                     await MainActor.run {
-                        print(11111111111111111)
-                        for movie in volumeData.result {
-                            print(movie.title)
-                        }
-                        print(11111111111111111)
+                        newMovies.append(contentsOf: volumeData.result)
+                        tableView.reloadData()
+                        indicator.stopAnimating()
                     }
                 } catch {
                     print(error)
