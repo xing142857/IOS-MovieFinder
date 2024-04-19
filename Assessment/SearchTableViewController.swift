@@ -52,84 +52,44 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func requestMoviesNamed(_ movieName: String) async {
-        
         let movieName = movieName.replacingOccurrences(of: " ", with: "+")
-        
-        do {
-            
-            let headers = [
-              "content-type": "application/json",
-              "authorization": "apikey 6EqsBfmY1KiWcFXzpzZNvS:2E5ubEEpx2B1CjHoNPfLyU"
-            ]
+        let headers = [
+            "content-type": "application/json",
+            "authorization": "apikey 6EqsBfmY1KiWcFXzpzZNvS:2E5ubEEpx2B1CjHoNPfLyU"
+        ]
 
-            let request = NSMutableURLRequest(url: NSURL(string: "https://api.collectapi.com/imdb/imdbSearchByName?query=\(movieName)")! as URL,
-                                                    cachePolicy: .useProtocolCachePolicy,
-                                                timeoutInterval: 10.0)
-            request.httpMethod = "GET"
-            request.allHTTPHeaderFields = headers
-
-            let session = URLSession.shared
-            let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
-                if (error != nil) {
-                    print(error!)
-                } else {
-                  if let httpResponse = response as? HTTPURLResponse {
-                      if httpResponse.statusCode == 200 {
-                          
-                          if let data = data {
-                              do {
-                                  let decoder = JSONDecoder()
-                                  let volumeData = try decoder.decode(VolumeData.self, from: data)
-                                  print(11111111111111111)
-                                  print(volumeData.result)
-                                  print(11111111111111111)
-//                                  if let movies = volumeData.result {
-//                                      await MainActor.run {
-//                                          newMovies.append(contentsOf: movies)
-//                                          tableView.reloadData()
-//                                      }
-//                                      if movies.count == MAX_ITEMS_PER_REQUEST, currentRequestIndex + 1 < MAX_REQUESTS {
-//
-//                                          currentRequestIndex += 1
-//                                          await requestMoviesNamed(movieName)
-//                                      }
-//                                  }
-                              } catch {
-                                  print(error)
-                              }
-                          }
-                      }
-                  }
-              }
-            }
-            
-
-            dataTask.resume()
-            
-//            let (data, _) =
-//            try await URLSession.shared.data(for: urlRequest)
-//            await MainActor.run {
-//                indicator.stopAnimating()
-//            }
-//
-//            let decoder = JSONDecoder()
-//            let volumeData = try decoder.decode(VolumeData.self, from: data)
-//            //let volumeData = try decoder.decode(VolumeData.self, from: dataTask)
-//
-//            if let movies = volumeData.movies {
-//                await MainActor.run {
-//                    newMovies.append(contentsOf: movies)
-//                    tableView.reloadData()
-//                }
-//                if movies.count == MAX_ITEMS_PER_REQUEST, currentRequestIndex + 1 < MAX_REQUESTS {
-//
-//                    currentRequestIndex += 1
-//                    await requestMoviesNamed(movieName)
-//                }
-//            }
-            
+        guard let url = URL(string: "https://api.collectapi.com/imdb/imdbSearchByName?query=\(movieName)") else {
+            return
         }
-        catch let error {
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let volumeData = try decoder.decode(VolumeData.self, from: data)
+                    
+                    await MainActor.run {
+                        print(11111111111111111)
+                        for movie in volumeData.result {
+                            print(movie.title)
+                        }
+                        print(11111111111111111)
+                    }
+                } catch {
+                    print(error)
+                }
+            
+            } else {
+                print("Received non-200 response: \(String(describing: response))")
+            }
+        } catch {
             print(error)
         }
     }
@@ -170,7 +130,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         
         cell.textLabel?.text = movie.title
         cell.detailTextLabel?.text = movie.year
-        let requestURL = URL(string: movie.image!)
+        let requestURL = URL(string: movie.poster)
         cell.imageView?.imageFrom(url: requestURL!)
         return cell
     }

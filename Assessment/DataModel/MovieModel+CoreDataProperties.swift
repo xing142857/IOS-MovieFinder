@@ -16,10 +16,11 @@ extension MovieModel {
         return NSFetchRequest<MovieModel>(entityName: "MovieModel")
     }
 
-    @NSManaged public var id: String?
     @NSManaged public var title: String?
-    @NSManaged public var image: String?
     @NSManaged public var year: String?
+    @NSManaged public var imdbID: String?
+    @NSManaged public var type: String?
+    @NSManaged public var poster: String?
 
 }
 

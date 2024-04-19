@@ -30,9 +30,9 @@ class MovieViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
 
-        movieID = (databaseController?.returnCurrentMovie().id)!
+        movieID = (databaseController?.returnCurrentMovie().imdbID)!
         movieTitleText.text = databaseController?.returnCurrentMovie().title
-        guard let url = databaseController?.returnCurrentMovie().image, let requestURL = URL(string: url) else { return }
+        guard let url = databaseController?.returnCurrentMovie().poster, let requestURL = URL(string: url) else { return }
 
         Task {
             await requestMoviesTrailer()

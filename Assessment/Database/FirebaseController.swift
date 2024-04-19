@@ -134,10 +134,11 @@ class FirebaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     
     func addMovieModel(movieData: MovieData) -> MovieModel {
         let movie = NSEntityDescription.insertNewObject(forEntityName: "MovieModel", into: persistentContainer.viewContext) as! MovieModel
-        movie.id = movieData.id
-        movie.image = movieData.image
         movie.title = movieData.title
         movie.year = movieData.year
+        movie.imdbID = movieData.imdbID
+        movie.type = movieData.type
+        movie.poster = movieData.poster
         currentMovie = movieData
         return movie
     }
