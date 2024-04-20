@@ -70,21 +70,25 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
             let (data, response) = try await URLSession.shared.data(for: request)
 
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                
+
                 do {
                     let decoder = JSONDecoder()
                     let volumeData = try decoder.decode(VolumeData.self, from: data)
-                    for movie in volumeData.result {
-                        print(movie.title)
-                    }
-                    
                     await MainActor.run {
+                        
                         newMovies.append(contentsOf: volumeData.result)
                         tableView.reloadData()
                         indicator.stopAnimating()
                     }
                 } catch {
+                    // Error will occur when the query string is invalid or doesn't match any data in the API,
+                    // in which case the API may not return any results.
                     print(error)
+                    let alert = UIAlertController(title: "No result", message: "Please try a longer or more specific movie title.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                    indicator.stopAnimating()
                 }
             
             } else {
@@ -95,6 +99,10 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
 
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.placeholder = "Search with movie title"
+    }
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         URLSession.shared.invalidateAndCancel()
         currentRequestIndex = 0

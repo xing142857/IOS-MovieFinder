@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" highlighted="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2Q-6O-Kkc">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="j2Q-6O-Kkc">
                                 <rect key="frame" x="20" y="112" width="374" height="249"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User name:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H48-3X-Nmb">
@@ -163,7 +163,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" highlighted="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0B-Xz-5J0">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="q0B-Xz-5J0">
                                 <rect key="frame" x="20" y="142" width="374" height="249"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User name:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGg-4J-A9c">
@@ -224,6 +224,7 @@
                     <navigationItem key="navigationItem" id="lAt-9V-v8m"/>
                     <connections>
                         <outlet property="passwordTextField" destination="5Rt-4w-BTj" id="LTH-qP-XM4"/>
+                        <outlet property="userNameTextField" destination="zis-Zi-egZ" id="VJY-wd-eT7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GsW-5J-PlN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -339,6 +340,8 @@
                         <constraints>
                             <constraint firstItem="dWB-1M-Nzy" firstAttribute="top" secondItem="B8u-Jl-I4d" secondAttribute="bottom" constant="30" id="0Le-AL-Z1b"/>
                             <constraint firstItem="vHI-Rw-2Km" firstAttribute="trailing" secondItem="xOs-vN-tzM" secondAttribute="trailing" constant="50" id="0aC-dA-fjo"/>
+                            <constraint firstItem="xOs-vN-tzM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="a8Z-0d-nBo" secondAttribute="trailing" constant="40" id="7TV-Co-jQA"/>
+                            <constraint firstItem="vHI-Rw-2Km" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dWB-1M-Nzy" secondAttribute="bottom" constant="160" id="9Fc-Hf-R0R"/>
                             <constraint firstItem="B8u-Jl-I4d" firstAttribute="leading" secondItem="vHI-Rw-2Km" secondAttribute="leading" constant="50" id="Bog-8L-VTN"/>
                             <constraint firstItem="B8u-Jl-I4d" firstAttribute="top" secondItem="a8Z-0d-nBo" secondAttribute="bottom" constant="30" id="Chu-Vy-V8e"/>
                             <constraint firstItem="xOs-vN-tzM" firstAttribute="top" secondItem="RsL-Wk-Vhu" secondAttribute="bottom" constant="30" id="Ikv-yA-gSa"/>
@@ -353,11 +356,16 @@
                             <constraint firstItem="vHI-Rw-2Km" firstAttribute="trailing" secondItem="mxd-wv-xUh" secondAttribute="trailing" constant="50" id="ekU-w1-FSK"/>
                             <constraint firstItem="a8Z-0d-nBo" firstAttribute="top" secondItem="n5J-h0-VwH" secondAttribute="bottom" constant="30" id="ew7-d9-9qr"/>
                             <constraint firstItem="vHI-Rw-2Km" firstAttribute="trailing" secondItem="9fs-Bd-Can" secondAttribute="trailing" constant="70" id="h84-yI-4Fj"/>
+                            <constraint firstItem="mxd-wv-xUh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dWB-1M-Nzy" secondAttribute="trailing" constant="40" id="hLj-WI-qwu"/>
                             <constraint firstItem="X3h-U5-QTi" firstAttribute="leading" secondItem="vHI-Rw-2Km" secondAttribute="leading" constant="20" id="jGt-7x-0lw"/>
                             <constraint firstItem="vHI-Rw-2Km" firstAttribute="bottom" secondItem="9fs-Bd-Can" secondAttribute="bottom" constant="30" id="mNd-Fc-cSI"/>
+                            <constraint firstItem="RKn-dg-GAq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="B8u-Jl-I4d" secondAttribute="trailing" constant="40" id="p20-cJ-ezx"/>
                             <constraint firstItem="RKn-dg-GAq" firstAttribute="top" secondItem="xOs-vN-tzM" secondAttribute="bottom" constant="30" id="qQn-bd-8Kx"/>
                             <constraint firstItem="a8Z-0d-nBo" firstAttribute="leading" secondItem="vHI-Rw-2Km" secondAttribute="leading" constant="50" id="s1W-oT-KUU"/>
+                            <constraint firstItem="RsL-Wk-Vhu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="n5J-h0-VwH" secondAttribute="trailing" constant="40" id="u5b-ct-AMc"/>
+                            <constraint firstItem="9fs-Bd-Can" firstAttribute="top" relation="greaterThanOrEqual" secondItem="mxd-wv-xUh" secondAttribute="bottom" constant="90" id="wfx-0G-fs4"/>
                             <constraint firstItem="n5J-h0-VwH" firstAttribute="leading" secondItem="vHI-Rw-2Km" secondAttribute="leading" constant="50" id="xJS-GO-Mvv"/>
+                            <constraint firstItem="9fs-Bd-Can" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vHI-Rw-2Km" secondAttribute="leading" constant="280" id="zFD-BN-w0b"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fXY-44-mmf"/>
