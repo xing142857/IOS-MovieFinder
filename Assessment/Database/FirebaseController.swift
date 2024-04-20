@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseFirestoreSwift
 import UIKit
 import CoreData
+import CryptoKit
 
 class FirebaseController: NSObject, DatabaseProtocol, NSFetchedResultsControllerDelegate {
     
@@ -43,10 +44,10 @@ class FirebaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     // MARK: - UserData
     
     func addUserNameAndPassword(username: String, password: String) -> String{
-        newUser.username = username
-        newUser.password = password
+        newUser.username = String(CryptoKit.SHA256.hash(data: username.data(using: .utf8)!).description.suffix(64))
+        newUser.password = String(CryptoKit.SHA256.hash(data: password.data(using: .utf8)!).description.suffix(64))
         for i in FirebaseUserdata {
-            if i.username == username {
+            if i.username == newUser.username {
                 return "Username is duplicate, please try another one!"
             }
         }
@@ -67,8 +68,9 @@ class FirebaseController: NSObject, DatabaseProtocol, NSFetchedResultsController
     }
     
     func loginUser(username: String, password: String) -> String {
+        // If data is huge, a more efficient search way should be used.
         for i in FirebaseUserdata {
-            if i.username == username && i.password == password{
+            if i.username == String(CryptoKit.SHA256.hash(data: username.data(using: .utf8)!).description.suffix(64)) && i.password! == String(CryptoKit.SHA256.hash(data: password.data(using: .utf8)!).description.suffix(64)) {
                 theLoginUser = i
                 return ""
             }

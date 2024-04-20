@@ -36,9 +36,7 @@ class ViewController: UIViewController {
         }
         let nextViewController =
         self.storyboard?.instantiateViewController(withIdentifier: "SearchTableViewController") as! SearchTableViewController
-        //let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainPageController") as! MainPageController
         self.navigationController?.pushViewController(nextViewController, animated: true)
-        //self.present(nextViewController, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {

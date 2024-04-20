@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchTableViewController: UITableViewController, UISearchBarDelegate {
+class SearchTableViewController: UITableViewController, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
     weak var databaseController: DatabaseProtocol?
 //    let REQUEST_STRING = "https://imdb-api.com/API/SearchMovie/k_21epknx4/"
@@ -20,6 +20,14 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Disable swipe gesture to navigate back
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        
+        // Hide the back button
+        navigationItem.hidesBackButton = true
+
+        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         // Do any additional setup after loading the view.
