@@ -10,7 +10,6 @@ import UIKit
 class SearchTableViewController: UITableViewController, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
     weak var databaseController: DatabaseProtocol?
-//    let REQUEST_STRING = "https://imdb-api.com/API/SearchMovie/k_21epknx4/"
     var newMovies = [MovieData]()
     let CELL_MOVIE = "movieCell"
     var indicator = UIActivityIndicatorView()

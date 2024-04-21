@@ -39,6 +39,7 @@
 		23DDBA032820F3390059C063 /* fantasy.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 23DDBA022820F3380059C063 /* fantasy.jpeg */; };
 		23DDBA052820F37A0059C063 /* romance.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 23DDBA042820F37A0059C063 /* romance.jpeg */; };
 		23F0E56428263F1A00A06384 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F0E56328263F1A00A06384 /* UserData.swift */; };
+		E39EBB5E2BD4D6C3003F08F9 /* default image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E39EBB5D2BD4D6C3003F08F9 /* default image.jpg */; };
 		E3A149192BCBABB000A8D33A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3A149182BCBABB000A8D33A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		23DDBA022820F3380059C063 /* fantasy.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fantasy.jpeg; sourceTree = "<group>"; };
 		23DDBA042820F37A0059C063 /* romance.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = romance.jpeg; sourceTree = "<group>"; };
 		23F0E56328263F1A00A06384 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		E39EBB5D2BD4D6C3003F08F9 /* default image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "default image.jpg"; sourceTree = "<group>"; };
 		E3A149182BCBABB000A8D33A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +167,7 @@
 		23DE4A3F2828DE2300719B8F /* image */ = {
 			isa = PBXGroup;
 			children = (
+				E39EBB5D2BD4D6C3003F08F9 /* default image.jpg */,
 				23AAACBF2820D68E009E0FE0 /* action.jpeg */,
 				23DDB9FC2820F1CB0059C063 /* sci-fi.jpeg */,
 				23DDB9FE2820F2390059C063 /* comedy.jpeg */,
@@ -250,6 +253,7 @@
 				23778116281E2EBB00FF5473 /* LaunchScreen.storyboard in Resources */,
 				23AAACC02820D68F009E0FE0 /* action.jpeg in Resources */,
 				23DDB9FF2820F2390059C063 /* comedy.jpeg in Resources */,
+				E39EBB5E2BD4D6C3003F08F9 /* default image.jpg in Resources */,
 				23DDB9FD2820F1CB0059C063 /* sci-fi.jpeg in Resources */,
 				23678EF728221BF8009CDAF3 /* history.jpeg in Resources */,
 				23DDBA052820F37A0059C063 /* romance.jpeg in Resources */,
