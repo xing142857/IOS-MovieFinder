@@ -20,8 +20,7 @@ class MovieViewController: UIViewController {
     @IBOutlet weak var webview: WKWebView!
     
     weak var databaseController: DatabaseProtocol?
-    var rateData = RateData()
-    var trailerData = TrailerData()
+    var movieDetail = MovieDetail()
     var movieID = ""
     var audioPlayer: AVAudioPlayer?
     
@@ -33,18 +32,17 @@ class MovieViewController: UIViewController {
         movieID = (databaseController?.returnCurrentMovie().imdbID)!
         movieTitleText.text = databaseController?.returnCurrentMovie().title
         guard let url = databaseController?.returnCurrentMovie().poster, let requestURL = URL(string: url) else { return }
-
-        Task {
-            await requestMoviesTrailer()
-            guard let u = trailerData.linkEmbed, let requestURL = URL(string: u) else { return }
-            webview.load(URLRequest(url: requestURL))
-        }
-
+        movieTitleImage.imageFrom(url: requestURL)
+        
         Task {
             await requestMoviesRate()
-            movieTitleImage.imageFrom(url: requestURL)
-            imdbRate.text = "IMDB Rate: " + rateData.imDb! + "/10"
-            rottenTomatoesRate.text = "Rotten Tomatoes: " + rateData.rottenTomatoes! + "/100"
+            for rating in movieDetail.ratings {
+                if rating.source == "Internet Movie Database" {
+                    imdbRate.text = "IMDB Rate: " + rating.value
+                } else if rating.source == "Rotten Tomatoes" {
+                    rottenTomatoesRate.text = "Rotten Tomatoes: " + rating.value
+                }
+            }
         }
         // Do any additional setup after loading the view.
     }
@@ -54,39 +52,34 @@ class MovieViewController: UIViewController {
     }
     
     func requestMoviesRate() async {
-        let u = "https://imdb-api.com/API/Ratings/k_21epknx4/" + movieID
-        guard let requestURL = URL(string: u) else {
-            print("Invalid URL.")
+        let headers = [
+          "content-type": "application/json",
+          "authorization": "apikey 6EqsBfmY1KiWcFXzpzZNvS:2E5ubEEpx2B1CjHoNPfLyU"
+        ]
+
+        guard let url = URL(string: "https://api.collectapi.com/imdb/imdbSearchById?movieId=" + movieID) else {
             return
         }
-        let urlRequest = URLRequest(url: requestURL)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
         do {
-            let (data, _) =
-            try await URLSession.shared.data(for: urlRequest)
+            let (data, response) = try await URLSession.shared.data(for: request)
 
-            let decoder = JSONDecoder()
-            self.rateData = try decoder.decode(RateData.self, from: data)
-        }
-        catch let error {
-            print(error)
-        }
-    }
-
-    func requestMoviesTrailer() async {
-        let u = "https://imdb-api.com/API/Trailer/k_21epknx4/" + movieID
-        guard let requestURL = URL(string: u) else {
-            print("Invalid URL.")
-            return
-        }
-        let urlRequest = URLRequest(url: requestURL)
-        do {
-            let (data, _) =
-            try await URLSession.shared.data(for: urlRequest)
-
-            let decoder = JSONDecoder()
-            self.trailerData = try decoder.decode(TrailerData.self, from: data)
-        }
-        catch let error {
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                    do {
+                        let decoder = JSONDecoder()
+                        let rateData = try decoder.decode(RateData.self, from: data)
+                        await MainActor.run {
+                            movieDetail = rateData.result
+                        }
+                    } catch {
+                        print(error)
+                    }
+            }
+        } catch {
             print(error)
         }
     }

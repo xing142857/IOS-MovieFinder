@@ -7,33 +7,65 @@
 
 import Foundation
 
-class RateData: NSObject, Decodable {
-    
-    var imDb: String?
-    var metacritic: String?
-    var theMovieDb: String?
-    var rottenTomatoes: String?
-    var filmAffinity: String?
-    
-    required init(from decoder: Decoder) throws {
-        // Get the root container first
-        let rootContainer = try decoder.container(keyedBy: RootKeys.self)
-        
-        // Get the Movie info
-        imDb = try rootContainer.decode(String.self, forKey: .imDb)
-        metacritic = try rootContainer.decode(String.self, forKey: .metacritic)
-        theMovieDb = try rootContainer.decode(String.self, forKey: .theMovieDb)
-        rottenTomatoes = try rootContainer.decode(String.self, forKey: .rottenTomatoes)
-        filmAffinity = try rootContainer.decode(String.self, forKey: .filmAffinity)
-    }
-    
-    override init() {}
+class RateData: Decodable {
+    let success: Bool
+    let result: MovieDetail
 }
 
-private enum RootKeys: String, CodingKey {
-    case imDb
-    case metacritic
-    case theMovieDb
-    case rottenTomatoes
-    case filmAffinity
+struct MovieDetail: Decodable {
+    let title: String
+    let year: String
+    let genre: String
+    let plot: String
+    let poster: String
+    let ratings: [Ratings]
+    
+    struct Ratings: Decodable {
+        let source: String
+        let value: String
+        
+        private enum CodingKeys: String, CodingKey {
+            case source = "Source"
+            case value = "Value"
+        }
+        
+        init() {
+            self.source = ""
+            self.value = ""
+        }
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            source = try container.decode(String.self, forKey: .source)
+            value = try container.decode(String.self, forKey: .value)
+        }
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case title = "Title"
+        case year = "Year"
+        case genre = "Genre"
+        case plot = "Plot"
+        case poster = "Poster"
+        case ratings = "Ratings"
+    }
+    
+    init() {
+        self.title = ""
+        self.year = ""
+        self.genre = ""
+        self.plot = ""
+        self.poster = ""
+        self.ratings = []
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        title = try container.decode(String.self, forKey: .title)
+        year = try container.decode(String.self, forKey: .year)
+        genre = try container.decode(String.self, forKey: .genre)
+        plot = try container.decode(String.self, forKey: .plot)
+        poster = try container.decode(String.self, forKey: .poster)
+        ratings = try container.decode([Ratings].self, forKey: .ratings)
+    }
 }

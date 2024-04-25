@@ -18,7 +18,6 @@
 		2360B15B283203C100278645 /* VolumeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2360B15A283203C000278645 /* VolumeData.swift */; };
 		23678EF728221BF8009CDAF3 /* history.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 23678EF628221BF8009CDAF3 /* history.jpeg */; };
 		23678EF928221CCF009CDAF3 /* mystery.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 23678EF828221CCF009CDAF3 /* mystery.jpeg */; };
-		2369DD3628471E1E008E993C /* TrailerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2369DD3528471E1E008E993C /* TrailerData.swift */; };
 		2377810A281E2EB900FF5473 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23778109281E2EB900FF5473 /* AppDelegate.swift */; };
 		2377810C281E2EB900FF5473 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377810B281E2EB900FF5473 /* SceneDelegate.swift */; };
 		2377810E281E2EB900FF5473 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377810D281E2EB900FF5473 /* ViewController.swift */; };
@@ -55,7 +54,6 @@
 		2360B15A283203C000278645 /* VolumeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeData.swift; sourceTree = "<group>"; };
 		23678EF628221BF8009CDAF3 /* history.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = history.jpeg; sourceTree = "<group>"; };
 		23678EF828221CCF009CDAF3 /* mystery.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mystery.jpeg; sourceTree = "<group>"; };
-		2369DD3528471E1E008E993C /* TrailerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerData.swift; sourceTree = "<group>"; };
 		23778106281E2EB900FF5473 /* Assessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23778109281E2EB900FF5473 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2377810B281E2EB900FF5473 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				235A4394283CA4510017D580 /* RateData.swift */,
-				2369DD3528471E1E008E993C /* TrailerData.swift */,
 				2360B15A283203C000278645 /* VolumeData.swift */,
 				23F0E56328263F1A00A06384 /* UserData.swift */,
 			);
@@ -289,7 +286,6 @@
 				23C9A7E7282F686700650C99 /* DatabaseProtocol.swift in Sources */,
 				2332DA8F28374DD700958053 /* MovieModel+CoreDataClass.swift in Sources */,
 				23D1E72B282239490081498A /* FirebaseController.swift in Sources */,
-				2369DD3628471E1E008E993C /* TrailerData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
